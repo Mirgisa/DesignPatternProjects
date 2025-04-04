@@ -1,5 +1,6 @@
 package com.acn.nemo.dao;
 
+import com.acn.nemo.dto.CustomerDTO;
 import com.acn.nemo.model.Customer;
 import com.acn.nemo.util.DBConnection;
 
@@ -17,14 +18,14 @@ public class CustomerDAO {
         // Establish connection here
        // Establish connection here
    }
-    public List<Customer> findAllCustomerDAO() {
-       List<Customer> list = new ArrayList<>();
+    public List<CustomerDTO> findAllCustomerDAO() {
+       List<CustomerDTO> list = new ArrayList<>();
         String query = "SELECT * FROM customer";
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
 
-                Customer c = new Customer(rs.getInt("customer_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"));
+                CustomerDTO c = new CustomerDTO(rs.getInt("customer_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"));
 
                 list.add(c);
               //  System.out.println(STR."customer_id: \{rs.getInt("customer_id")}, First Name: \{rs.getString("first_name")}, Last Name: \{rs.getString("last_name")}, Email: \{rs.getString("email")}");
@@ -36,15 +37,14 @@ public class CustomerDAO {
         return list;
     }
 
-    public Customer findCustomerByIdDAO(int id) {
-       //Customer customer = new Customer();
+    public CustomerDTO findCustomerByIdDAO(int id) {
 
         String query = "SELECT * FROM customer WHERE customer_id = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return new Customer(rs.getInt("customer_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"));
+                return new CustomerDTO(rs.getInt("customer_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"));
 
                 //System.out.println(STR."custome_id: \{rs.getInt("customer_id")},first_name: \{rs.getString("first_name")}, last_name: \{rs.getString("last_name")}, email: \{rs.getString("email")}");
             } //else {
@@ -56,8 +56,8 @@ public class CustomerDAO {
         return null;
     }
 
-    public List<Customer> findCustomerByFirstNameAndLastNameDAO(String first_name, String last_name) {
-       List<Customer> customerList = new ArrayList<>();
+    public List<CustomerDTO> findCustomerByFirstNameAndLastNameDAO(String first_name, String last_name) {
+       List<CustomerDTO> customerList = new ArrayList<>();
 
         String query = "SELECT * FROM customer WHERE first_name =? AND last_name =?";
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
@@ -65,7 +65,7 @@ public class CustomerDAO {
             pstmt.setString(2, last_name);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                Customer c = new Customer(rs.getInt("customer_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"));
+                CustomerDTO c = new CustomerDTO(rs.getInt("customer_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"));
                 customerList.add(c);
                 //System.out.println(STR."ID: \{rs.getInt("customer_id")}, First Name: \{rs.getString("first_name")}, Last Name: \{rs.getString("last_name")}, Email: \{rs.getString("email")}");
             }
@@ -75,14 +75,14 @@ public class CustomerDAO {
         return customerList;
     }
 
-    public Customer findCustomerByEmailAddressDAO(String email) {
+    public CustomerDTO findCustomerByEmailAddressDAO(String email) {
        // Connection connection = DBConnection.getConnection();
         String query = "SELECT * FROM customer WHERE email =?";
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1, email);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return new Customer(rs.getInt("customer_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"));
+                return new CustomerDTO(rs.getInt("customer_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"));
                 //System.out.println(STR."ID: \{rs.getInt("customer_id")}, First Name: \{rs.getString("first_name")}, Last Name: \{rs.getString("last_name")}, Email: \{rs.getString("email")}");
             } //else {
                // System.out.println("Customer not found.");
@@ -93,7 +93,7 @@ public class CustomerDAO {
         return null;
     }
 
-    public Optional<Customer> updateCustomerFirstNameDAO(int id, String newFirstName) {
+    public Optional<CustomerDTO> updateCustomerFirstNameDAO(int id, String newFirstName) {
 
         String query = "UPDATE customer SET first_name =? WHERE customer_id =?";
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
@@ -113,7 +113,7 @@ public class CustomerDAO {
         return Optional.empty();
     }
 
-    public Optional<Customer> updateCustomerEmailDAO(int id, String newEmail) {
+    public Optional<CustomerDTO> updateCustomerEmailDAO(int id, String newEmail) {
         //Connection connection = DBConnection.getConnection();
         String query = "UPDATE customer SET email =? WHERE customer_id =?";
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
