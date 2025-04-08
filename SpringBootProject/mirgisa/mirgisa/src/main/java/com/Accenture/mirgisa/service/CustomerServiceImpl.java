@@ -1,6 +1,6 @@
 package com.Accenture.mirgisa.service;
 
-import com.Accenture.mirgisa.DTO.CustomerDTO;
+import com.Accenture.mirgisa.dto.CustomerDTO;
 import com.Accenture.mirgisa.exception.CustomerNotFoundException;
 import com.Accenture.mirgisa.mapper.CustomerMapper;
 import com.Accenture.mirgisa.model.Customer;
@@ -26,6 +26,7 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public List<CustomerDTO> getAllCustomer() {
         List<Customer> customers = customerRepository.findAll();
+        System.out.println(customers);
         return customers.stream()
                 .map(customerMapper::customerToCustomerDTO)
                 .collect(Collectors.toList());
