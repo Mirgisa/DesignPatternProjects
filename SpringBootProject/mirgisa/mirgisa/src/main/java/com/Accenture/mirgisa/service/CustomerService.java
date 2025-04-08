@@ -1,6 +1,6 @@
 package com.Accenture.mirgisa.service;
 
-import com.Accenture.mirgisa.DTO.CustomerDTO;
+import com.Accenture.mirgisa.dto.CustomerDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 

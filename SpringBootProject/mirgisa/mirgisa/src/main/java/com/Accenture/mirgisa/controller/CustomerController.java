@@ -1,6 +1,6 @@
 package com.Accenture.mirgisa.controller;
 
-import com.Accenture.mirgisa.DTO.CustomerDTO;
+import com.Accenture.mirgisa.dto.CustomerDTO;
 import com.Accenture.mirgisa.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
